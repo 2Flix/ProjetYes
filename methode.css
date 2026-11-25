@@ -1,0 +1,84 @@
+/* Page 2 – Choix de la méthode (se charge après style.css et réutilise ses variables) */
+
+/* Étape terminée dans le stepper */
+.step--done { color: var(--ink); }
+.step__circle--done { background: var(--purple); color: #fff; }
+.step__line--done { background: var(--purple-dark); }
+
+.content--methods { margin-top: 36px; }
+.title--center { text-align: center; font-size: 1.5rem; letter-spacing: -.02em; margin-bottom: 8px; }
+.lead--center { text-align: center; font-size: 1rem; margin-bottom: 28px; min-height: 1.5em; }
+
+/* ---------- Cartes de choix ---------- */
+.methods {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+.method { display: block; position: relative; cursor: pointer; }
+
+/* Le bouton radio reste accessible au clavier mais n'est pas dessiné */
+.method__input {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: 0; opacity: 0;
+}
+
+.method__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px 24px 22px;
+  background: #fff;
+  border: 2px solid var(--purple);
+  border-radius: 20px;
+  transition: background-color .15s, box-shadow .15s, border-color .15s;
+}
+.method:hover .method__body { border-color: var(--purple-dark); }
+.method__input:focus-visible + .method__body { outline: 3px solid var(--purple); outline-offset: 3px; }
+.method__input:checked + .method__body {
+  background: #f7f3fd;
+  border-color: var(--purple-dark);
+  box-shadow: 0 0 0 3px var(--purple-soft);
+}
+
+.method__name { font-size: 1.5rem; font-weight: 800; letter-spacing: -.02em; padding-right: 52px; }
+.method__full { margin: 8px 0 22px; color: var(--muted); font-size: .9rem; font-weight: 600; }
+.method__desc { flex: 1; margin-bottom: 22px; font-size: 1rem; line-height: 1.45; }
+
+.method__tag {
+  padding: 10px 14px;
+  border: 2px solid var(--purple);
+  border-radius: 12px;
+  background: var(--purple-soft);
+  color: var(--purple-dark);
+  font-size: .85rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Pastille de sélection */
+.method__check {
+  position: absolute;
+  top: 20px; right: 20px;
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  border: 1.5px solid var(--line);
+  border-radius: 50%;
+  background: #fff;
+  color: transparent;
+  transition: background-color .15s, border-color .15s, color .15s;
+}
+.method__input:checked + .method__body .method__check {
+  background: var(--purple);
+  border-color: var(--purple);
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .methods { grid-template-columns: 1fr; gap: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .method__body, .method__check { transition: none; }
+}
