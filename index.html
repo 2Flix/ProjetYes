@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JUNIA – Import</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page">
+
+    <header class="header">
+      <img class="header__logo" src="assets/logo-junia.png" alt="JUNIA">
+      <h1 class="header__title">Bienvenue sur cette interface de visualisation</h1>
+    </header>
+
+    <main class="main">
+      <div class="dropzone" id="dropzone" role="button" tabindex="0"
+           aria-label="Importer des fichiers .txt (6 maximum)">
+        <p class="dropzone__text">Importez vos fichiers .txt ici (6 maximum)</p>
+
+        <svg class="dropzone__icon" viewBox="0 0 100 112" aria-hidden="true">
+          <path d="M50 0v62M30 46l20 20 20-20" fill="none" stroke="currentColor" stroke-width="10"/>
+          <path d="M50 4v56" stroke="currentColor" stroke-width="10"/>
+          <path d="M36 44h28L50 62z" fill="currentColor"/>
+          <path d="M20 46H8a6 6 0 0 0-6 6v50a6 6 0 0 0 6 6h84a6 6 0 0 0 6-6V52a6 6 0 0 0-6-6H80"
+                fill="none" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/>
+        </svg>
+
+        <ul class="file-list" id="fileList" aria-live="polite"></ul>
+        <p class="dropzone__message" id="message" role="alert"></p>
+
+        <input type="file" id="fileInput" accept=".txt,text/plain" multiple hidden>
+      </div>
+
+      <nav class="footer-bar" aria-label="Étapes">
+        <ol class="stepper">
+          <li class="step step--active" aria-current="step">
+            <span class="step__circle">1</span><span class="step__label">Import</span>
+          </li>
+          <li class="step__line" aria-hidden="true"></li>
+          <li class="step">
+            <span class="step__circle">2</span><span class="step__label">Méthode</span>
+          </li>
+          <li class="step__line" aria-hidden="true"></li>
+          <li class="step">
+            <span class="step__circle">3</span><span class="step__label">Visualisation</span>
+          </li>
+        </ol>
+        <button class="btn" id="validateBtn" type="button" disabled>Valider</button>
+      </nav>
+    </main>
+
+    <footer class="footer">CopyRight © 2026</footer>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/import.js"></script>
+</body>
+</html>
