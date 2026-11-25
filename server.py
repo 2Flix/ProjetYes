@@ -1,7 +1,6 @@
 """Sert les pages du site ET l'API d'analyse.
 
-    pip install -r requirements.txt
-    python server.py          ->  http://localhost:5000
+    python server.py          ->  s'ouvre sur http://localhost:5000
 
 POST /api/analyze  (multipart : method = cnn | ann, files = fichiers .txt)
 Réponse en flux NDJSON, une ligne JSON par événement :
@@ -10,7 +9,9 @@ Réponse en flux NDJSON, une ligne JSON par événement :
     {"type":"error","code":"...","detail":"..."}
 """
 import json
+import threading
 import time
+import webbrowser
 from pathlib import Path
 
 import numpy as np
@@ -118,7 +119,7 @@ def analyze(method, files):
             "meanProba": probs.mean(axis=0).round(4).tolist(),
             "dominant": int(counts.argmax()),
         }
-        if y is not None:                      # le fichier contenait la colonne class
+        if y is not None:
             item["trueLabels"] = y.tolist()
             item["accuracy"] = round(float((preds == y).mean()) * 100, 2)
         results.append(item)
@@ -152,7 +153,7 @@ def api_analyze():
             yield from analyze(method, files)
         except AnalysisError as e:
             yield event(type="error", code=e.code, detail=e.detail)
-        except Exception as e:                  # ne jamais laisser le flux se couper sans message
+        except Exception as e:
             app.logger.exception("analyse échouée")
             yield event(type="error", code="server", detail=str(e))
 
