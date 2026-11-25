@@ -3,58 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>JUNIA – Import</title>
+  <title>EMG Studio – Import</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="page">
 
     <header class="header">
-      <img class="header__logo" src="assets/logo-junia.png" alt="JUNIA">
-      <h1 class="header__title">Bienvenue sur cette interface de visualisation</h1>
+      <div class="brand">
+        <span class="brand__logo">JUNIA</span>
+        <span class="brand__sep" aria-hidden="true">/</span>
+        <div class="brand__text">
+          <strong>EMG Studio</strong>
+          <span data-i18n="subtitle">Projet 4031 · Reconnaissance des mouvements</span>
+        </div>
+      </div>
+
+      <div class="header__tools">
+        <span class="pill" data-i18n="channels">EMG / 8 canaux</span>
+        <div class="lang" role="group" aria-label="Langue">
+          <button type="button" class="lang__btn" data-lang="fr" aria-pressed="true">FR</button>
+          <button type="button" class="lang__btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
     </header>
 
     <main class="main">
-      <div class="dropzone" id="dropzone" role="button" tabindex="0"
-           aria-label="Importer des fichiers .txt (6 maximum)">
-        <p class="dropzone__text">Importez vos fichiers .txt ici (6 maximum)</p>
+      <ol class="stepper" aria-label="Étapes">
+        <li class="step step--active" aria-current="step">
+          <span class="step__circle">1</span><span data-i18n="step1">Import</span>
+        </li>
+        <li class="step__line" aria-hidden="true"></li>
+        <li class="step">
+          <span class="step__circle">2</span><span data-i18n="step2">Méthode</span>
+        </li>
+        <li class="step__line" aria-hidden="true"></li>
+        <li class="step">
+          <span class="step__circle">3</span><span data-i18n="step3">Visualisation</span>
+        </li>
+      </ol>
 
-        <svg class="dropzone__icon" viewBox="0 0 100 112" aria-hidden="true">
-          <path d="M50 0v62M30 46l20 20 20-20" fill="none" stroke="currentColor" stroke-width="10"/>
-          <path d="M50 4v56" stroke="currentColor" stroke-width="10"/>
-          <path d="M36 44h28L50 62z" fill="currentColor"/>
-          <path d="M20 46H8a6 6 0 0 0-6 6v50a6 6 0 0 0 6 6h84a6 6 0 0 0 6-6V52a6 6 0 0 0-6-6H80"
-                fill="none" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/>
-        </svg>
+      <section class="content">
+        <p class="eyebrow" data-i18n="eyebrow">01 / Acquisition</p>
+        <h1 class="title" data-i18n="title">Importez vos signaux EMG</h1>
+        <p class="lead" data-i18n="lead">Déposez jusqu’à six fichiers segmentés, un mouvement par fichier.</p>
 
-        <ul class="file-list" id="fileList" aria-live="polite"></ul>
-        <p class="dropzone__message" id="message" role="alert"></p>
+        <div class="card">
+          <div class="dropzone" id="dropzone" role="button" tabindex="0">
+            <svg class="dropzone__icon" viewBox="0 0 24 70" aria-hidden="true">
+              <path d="M8 1h8v46h6.5L12 69 1.5 47H8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
+            <p class="dropzone__title" data-i18n="dropTitle">Glissez-déposez vos fichiers ici</p>
+            <p class="dropzone__sub" data-i18n="dropSub">ou cliquez pour parcourir vos fichiers</p>
+            <p class="dropzone__hint" data-i18n="dropHint">TXT · 8 canaux EMG · 6 fichiers maximum</p>
+            <input type="file" id="fileInput" accept=".txt,text/plain" multiple hidden>
+          </div>
 
-        <input type="file" id="fileInput" accept=".txt,text/plain" multiple hidden>
-      </div>
+          <div class="card__status">
+            <p class="counter" id="counter" aria-live="polite">0 / 6 fichiers</p>
+            <ul class="file-list" id="fileList"></ul>
+          </div>
+          <p class="message" id="message" role="alert"></p>
+        </div>
 
-      <nav class="footer-bar" aria-label="Étapes">
-        <ol class="stepper">
-          <li class="step step--active" aria-current="step">
-            <span class="step__circle">1</span><span class="step__label">Import</span>
-          </li>
-          <li class="step__line" aria-hidden="true"></li>
-          <li class="step">
-            <span class="step__circle">2</span><span class="step__label">Méthode</span>
-          </li>
-          <li class="step__line" aria-hidden="true"></li>
-          <li class="step">
-            <span class="step__circle">3</span><span class="step__label">Visualisation</span>
-          </li>
-        </ol>
-        <button class="btn" id="validateBtn" type="button" disabled>Valider</button>
-      </nav>
+        <div class="actions">
+          <button type="button" class="btn btn--outline" id="exampleBtn" data-i18n="examples">Charger 6 exemples</button>
+          <button type="button" class="btn btn--primary" id="validateBtn" disabled>
+            <span data-i18n="validate">Valider</span> <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </section>
     </main>
 
-    <footer class="footer">CopyRight © 2026</footer>
+    <footer class="footer">
+      <span>JUNIA · Projet 4031 · 2026</span>
+      <span data-i18n="disclaimer">Interface de recherche — pas un dispositif médical</span>
+    </footer>
   </div>
 
   <script src="storage.js"></script>
